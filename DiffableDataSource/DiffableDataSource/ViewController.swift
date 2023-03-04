@@ -131,7 +131,7 @@ extension ViewController: SearchBarTableViewCellDelegate {
                 case .searchBar, .addedList:
                     return false
                 case .list(let name):
-                    return name.contains(text) && addedListDictionary[name] == nil
+                    return name.lowercased().contains(text.lowercased()) && addedListDictionary[name] == nil
                 }
             })
         }
@@ -149,7 +149,7 @@ extension ViewController: ListTableViewCellDelegate {
                 addedList.remove(at: index)
                 snapShot.deleteItems([cellListType])
                 let newPerson: CellListType = .list(name: name)
-                if name.contains(searchText) || searchText.isEmpty {
+                if name.lowercased().contains(searchText.lowercased()) || searchText.isEmpty {
                     snapShot.appendItems([newPerson], toSection: .list)
                 }
                 addedListDictionary.removeValue(forKey: name)
